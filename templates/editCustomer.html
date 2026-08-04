@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Customer</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        width: 420px;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px gray;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Edit Customer</h2>
+
+      <form action="/updateCustomer" method="POST">
+        <input type="hidden" name="caccno" value="{{customer.accno}}" />
+
+        <label>Customer Name</label>
+        <input type="text" name="uname" value="{{customer.cname}}" />
+
+        <label>Mobile Number</label>
+        <input type="number" name="umobile" value="{{customer.cmobile}}" />
+
+        <label>Email</label>
+        <input type="email" name="uemail" value="{{customer.cemail}}" />
+
+        <label>Password</label>
+        <input type="text" name="upassword" value="{{customer.password}}" />
+
+        <button type="submit">Update Customer</button>
+      </form>
+    </div>
+  </body>
+</html>
