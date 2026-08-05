@@ -10,95 +10,139 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: Arial, sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
       }
 
       body {
-        background: #f4f6f9;
+        background: #eef3f8;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
       }
 
       .container {
-        width: 420px;
-        background: #fff;
-        padding: 25px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 450px;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2);
       }
 
       h2 {
         text-align: center;
-        color: #2c3e50;
-        margin-bottom: 20px;
+        color: #0d6efd;
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
       }
 
       input {
         width: 100%;
         padding: 12px;
-        margin: 10px 0;
+        margin-top: 8px;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 6px;
         font-size: 15px;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #0d6efd;
       }
 
       button {
         width: 100%;
-        padding: 12px;
-        background: #28a745;
+        padding: 13px;
+        margin-top: 25px;
+        background: #198754;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         font-size: 16px;
+        font-weight: bold;
         cursor: pointer;
       }
 
       button:hover {
-        background: #218838;
+        background: #157347;
       }
 
-      a {
-        display: block;
-        text-align: center;
-        margin-top: 15px;
+      .links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .links a {
         text-decoration: none;
-        color: #007bff;
+        color: #0d6efd;
+        font-weight: bold;
       }
 
-      a:hover {
+      .links a:hover {
         text-decoration: underline;
       }
     </style>
   </head>
+
   <body>
     <div class="container">
-      <h2>Create Customer</h2>
+      <h2>👤 Create Customer</h2>
 
       <form action="/insertData" method="POST">
-        <input type="text" name="name" placeholder="Customer Name" required />
+        <label>Customer Name</label>
 
         <input
-          type="number"
-          name="mobile"
-          placeholder="Mobile Number"
+          type="text"
+          name="name"
+          placeholder="Enter Customer Name"
           required
         />
 
-        <input type="email" name="email" placeholder="Email Address" required />
+        <label>Mobile Number</label>
+
+        <input
+          type="tel"
+          name="mobile"
+          placeholder="Enter Mobile Number"
+          pattern="[0-9]{10}"
+          maxlength="10"
+          required
+        />
+
+        <label>Email Address</label>
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Email Address"
+          required
+        />
+
+        <label>Opening Balance</label>
 
         <input
           type="number"
           name="balance"
-          placeholder="Opening Balance"
+          placeholder="Enter Opening Balance"
+          min="0"
+          step="0.01"
           required
         />
 
         <button type="submit">Create Customer</button>
       </form>
 
-      <a href="/adminDashboard">⬅ Back to Dashboard</a>
+      <div class="links">
+        <a href="/dashboard"> 🏠 Dashboard </a>
+
+        <a href="/adminDashboard"> 👥 Customers </a>
+      </div>
     </div>
   </body>
 </html>

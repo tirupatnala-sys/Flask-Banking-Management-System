@@ -1,66 +1,184 @@
+<!doctype html>
 <html lang="en">
   <head>
-    <title>Document</title>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Customer Dashboard</title>
+
     <link
       rel="stylesheet"
       href="{{url_for('static',filename='adminDashboard.css')}}"
     />
+
+    <style>
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .bank-logo {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+      }
+
+      .header-text {
+        text-align: center;
+      }
+
+      .search {
+        width: 90%;
+        margin: 25px auto;
+        text-align: right;
+      }
+
+      .search-box {
+        position: relative;
+        display: inline-block;
+      }
+
+      .search-box input {
+        width: 350px;
+        padding: 12px 45px 12px 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+      }
+
+      .search-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+      }
+    </style>
   </head>
+
   <body>
     <header>
-      <h1>Welcome Admin</h1>
-      <p>Bank Management System Dashboard</p>
+      <img
+        src="{{ url_for('static', filename='bank.png') }}"
+        class="bank-logo"
+        alt="Bank Logo"
+      />
+
+      <div class="header-text">
+        <h1>Welcome Admin</h1>
+
+        <p>Bank Management System - Customer Dashboard</p>
+      </div>
     </header>
+
     <nav>
-      <h2>Navigation bar</h2>
-      <a href="{{url_for('createCustomerFun')}}"
-        ><button>Create Customer</button></a
-      >
-      <a href="{{url_for('makeTransaction')}}"
-        ><button>Make Transaction</button></a
-      >
-      <a href="{{url_for('home')}}"
-        ><button>Logout</butto></button></a
-      >
+      <a href="{{url_for('dashboard')}}">
+        <button>Dashboard</button>
+      </a>
+
+      <a href="{{url_for('createCustomerFun')}}">
+        <button>Create Customer</button>
+      </a>
+
+      <a href="{{url_for('makeTransaction')}}">
+        <button>Deposit / Withdraw</button>
+      </a>
+
+      <a href="{{url_for('logout')}}">
+        <button class="delete-btn">Logout</button>
+      </a>
     </nav>
-    
-    <main>
-      <table border="2">
-        <tr>
-          <th>SNO</th>
-          <th>Customer Name</th>
-          <th>Customer Mobile</th>
-          <th>Customer Email</th>
-          <th>Customer AccNo</th>
-          <th>Customer Balance</th>
-          <th colspan="2">Actions</th>
-        </tr>
-        {% for customer in data %}
-        <tr>
 
-          <td>{{loop.index}}</td>
-          <td>{{customer["cname"]}}</td>
-          <td>{{customer["cmobile"]}}</td>
-          <td>{{customer["cemail"]}}</td>
-          <td>{{customer["accno"]}}</td>
-          <td>₹{{ "{:,.2f}".format(customer["balance"]) }}</td>
+    <!-- SEARCH BOX RIGHT SIDE -->
 
-          <td>
-            <form action="/deleteCustomer/{{customer["accno"]}}" method="GETT">
-              <button type="submit" class="delete-btn">Delete</button>
-            </form>
-          </td>
-          <td>
-            <form action="/editCustomer/{{customer["accno"]}}" method="POST">
-              <button type="submit" class="edit-btn">Edit</button>
-            </form>
-          </td>
-        </tr>
-        {%endfor%}
-      </table>
-    </main>
+    <div class="search">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search Customers..."
+          onkeyup="searchCustomer()"
+        />
+
+        <span class="search-icon"> 🔍 </span>
+      </div>
+    </div>
+
+    <table>
+      <tr>
+        <th>SNO</th>
+
+        <th>Customer Name</th>
+
+        <th>Mobile</th>
+
+        <th>Email</th>
+
+        <th>Account Number</th>
+
+        <th>Balance</th>
+
+        <th colspan="2">Actions</th>
+      </tr>
+
+      {% for customer in data %}
+
+      <tr>
+        <td>{{loop.index}}</td>
+
+        <td>{{customer["cname"]}}</td>
+
+        <td>{{customer["cmobile"]}}</td>
+
+        <td>{{customer["cemail"]}}</td>
+
+        <td>{{customer["accno"]}}</td>
+
+        <td>₹ {{ "{:,.2f}".format(customer["balance"]) }}</td>
+
+        <td>
+          <form action="/deleteCustomer/{{customer['accno']}}" method="GET">
+            <button class="delete-btn">Delete</button>
+          </form>
+        </td>
+
+        <td>
+          <form action="/editCustomer/{{customer['accno']}}" method="GET">
+            <button class="edit-btn">Edit</button>
+          </form>
+        </td>
+      </tr>
+
+      {% endfor %}
+    </table>
+
     <footer>
-    <p>© 2026 Bank Management System | Developed by Tirupatamma Patnala</p>
+      <p>© 2026 Bank Management System | Developed by Tirupatamma Patnala</p>
     </footer>
+
+    <script>
+      function searchCustomer() {
+        let input = document.getElementById("searchInput");
+
+        let filter = input.value.toLowerCase();
+
+        let table = document.querySelector("table");
+
+        let rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+          let data = rows[i].innerText.toLowerCase();
+
+          if (data.includes(filter)) {
+            rows[i].style.display = "";
+          } else {
+            rows[i].style.display = "none";
+          }
+        }
+      }
+    </script>
   </body>
 </html>

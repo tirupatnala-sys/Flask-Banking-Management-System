@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Bank Dashboard</title>
+
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='adminDashboard.css')}}"
+    />
+
+    <style>
+      .dashboard-header-icon {
+        font-size: 45px;
+        margin-bottom: 10px;
+      }
+
+      .cards {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin: 30px;
+      }
+
+      .card {
+        background: white;
+        width: 250px;
+        padding: 25px;
+        text-align: center;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .buttons {
+        text-align: center;
+        margin: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="dashboard-header-icon">🏦</div>
+
+      <h1>Welcome Admin</h1>
+
+      <p>Bank Management System Dashboard</p>
+    </header>
+
+    <section class="cards">
+      <div class="card">
+        <h2>{{totalCustomers}}</h2>
+
+        <p>Total Customers</p>
+      </div>
+
+      <div class="card">
+        <h2>{{totalTransactions}}</h2>
+
+        <p>Total Transactions</p>
+      </div>
+
+      <div class="card">
+        <h2>₹ {{totalBalance}}</h2>
+
+        <p>Total Balance</p>
+      </div>
+    </section>
+
+    <div class="buttons">
+      <a href="{{url_for('createCustomerFun')}}">
+        <button>➕ Add Customer</button>
+      </a>
+
+      <a href="{{url_for('makeTransaction')}}">
+        <button>💰 Deposit / Withdraw</button>
+      </a>
+
+      <a href="{{url_for('viewTransactions')}}">
+        <button>📄 View Transactions</button>
+      </a>
+
+      <a href="{{url_for('viewAllCustomers')}}">
+        <button>👥 Customers</button>
+      </a>
+
+      <a href="{{url_for('logout')}}">
+        <button class="delete-btn">🚪 Logout</button>
+      </a>
+    </div>
+
+    <h2 style="text-align: center; margin: 20px">Recent Transactions</h2>
+
+    <table>
+      <tr>
+        <th>Transaction ID</th>
+
+        <th>Type</th>
+
+        <th>Account No</th>
+
+        <th>Before Balance</th>
+
+        <th>After Balance</th>
+
+        <th>Date</th>
+      </tr>
+
+      {% for t in recentTransactions %}
+
+      <tr>
+        <td>{{t[0]}}</td>
+
+        <td>{{t[1]}}</td>
+
+        <td>{{t[2]}}</td>
+
+        <td>₹ {{t[3]}}</td>
+
+        <td>₹ {{t[4]}}</td>
+
+        <td>{{t[5]}}</td>
+      </tr>
+
+      {% endfor %}
+    </table>
+
+    <footer>
+      <p>© 2026 Bank Management System | Developed by Tirupatamma Patnala</p>
+    </footer>
+  </body>
+</html>

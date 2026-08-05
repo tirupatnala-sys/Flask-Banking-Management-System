@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transaction</title>
+    <title>Bank Transaction</title>
 
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: Arial, sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
       }
 
       body {
-        background: #f4f6f9;
+        background: #eef3f8;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -22,56 +22,71 @@
       }
 
       .container {
-        width: 420px;
-        background: #fff;
-        padding: 25px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 450px;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
       }
 
       h2 {
         text-align: center;
-        color: #2c3e50;
-        margin-bottom: 20px;
+        color: #0d6efd;
+        margin-bottom: 25px;
       }
 
       label {
+        display: block;
+        margin-top: 15px;
         font-weight: bold;
       }
 
       input,
       select {
         width: 100%;
-        padding: 10px;
-        margin: 10px 0 15px;
+        padding: 12px;
+        margin-top: 8px;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 6px;
+        font-size: 15px;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #0d6efd;
       }
 
       button {
         width: 100%;
-        padding: 12px;
-        background: #28a745;
+        padding: 13px;
+        margin-top: 25px;
+        background: #198754;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 8px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 17px;
+        font-weight: bold;
       }
 
       button:hover {
-        background: #218838;
+        background: #157347;
       }
 
-      a {
-        display: block;
-        text-align: center;
-        margin-top: 15px;
+      .links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .links a {
         text-decoration: none;
-        color: #007bff;
+        color: #0d6efd;
+        font-weight: bold;
       }
 
-      a:hover {
+      .links a:hover {
         text-decoration: underline;
       }
     </style>
@@ -79,16 +94,21 @@
 
   <body>
     <div class="container">
-      <h2>Customer Transaction</h2>
+      <h2>💳 Customer Transaction</h2>
 
       <form action="/transaction" method="POST">
         <label>Transaction Type</label>
+
         <select name="t_type" required>
+          <option value="">Select Transaction</option>
+
           <option value="deposit">Deposit</option>
+
           <option value="withdraw">Withdraw</option>
         </select>
 
         <label>Account Number</label>
+
         <input
           type="number"
           name="caccno"
@@ -97,18 +117,24 @@
         />
 
         <label>Amount</label>
+
         <input
           type="number"
           name="amount"
           step="0.01"
+          min="1"
           placeholder="Enter Amount"
           required
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit">Submit Transaction</button>
       </form>
 
-      <a href="/adminDashboard">⬅ Back to Dashboard</a>
+      <div class="links">
+        <a href="/dashboard"> 🏠 Dashboard </a>
+
+        <a href="/adminDashboard"> 👥 Customers </a>
+      </div>
     </div>
   </body>
 </html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Transactions</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial;
+      }
+
+      body {
+        background: #eef3f8;
+      }
+
+      header {
+        background: #0d6efd;
+
+        color: white;
+
+        padding: 20px;
+
+        text-align: center;
+      }
+
+      .search {
+        width: 90%;
+
+        margin: 20px auto;
+
+        text-align: right;
+      }
+
+      .search input {
+        padding: 10px;
+
+        width: 300px;
+
+        border-radius: 5px;
+
+        border: 1px solid gray;
+      }
+
+      table {
+        width: 95%;
+
+        margin: auto;
+
+        border-collapse: collapse;
+
+        background: white;
+
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      th {
+        background: #0d6efd;
+
+        color: white;
+
+        padding: 12px;
+      }
+
+      td {
+        padding: 10px;
+
+        text-align: center;
+
+        border-bottom: 1px solid #ddd;
+      }
+
+      tr:nth-child(even) {
+        background: #f8f9fa;
+      }
+
+      tr:hover {
+        background: #eaf3ff;
+      }
+
+      .back {
+        margin: 25px;
+
+        text-align: center;
+      }
+
+      .back a {
+        text-decoration: none;
+      }
+
+      button {
+        padding: 12px 20px;
+
+        background: #0d6efd;
+
+        color: white;
+
+        border: none;
+
+        border-radius: 5px;
+
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #0047b3;
+      }
+
+      .deposit {
+        color: green;
+
+        font-weight: bold;
+      }
+
+      .withdraw {
+        color: red;
+
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Transaction History</h1>
+    </header>
+
+    <div class="search">
+      <input
+        type="text"
+        id="search"
+        placeholder="Search Account Number..."
+        onkeyup="searchAcc()"
+      />
+    </div>
+
+    <table id="myTable">
+      <tr>
+        <th>Transaction ID</th>
+
+        <th>Type</th>
+
+        <th>Account No</th>
+
+        <th>Before</th>
+
+        <th>After</th>
+
+        <th>Date</th>
+
+        <th>Time</th>
+      </tr>
+
+      {% for t in transactions %}
+
+      <tr>
+        <td>{{t.transactionid}}</td>
+
+        <td>
+          {% if t.transactiontype=="deposit" %}
+
+          <span class="deposit">Deposit</span>
+
+          {% else %}
+
+          <span class="withdraw">Withdraw</span>
+
+          {% endif %}
+        </td>
+
+        <td>{{t.accno}}</td>
+
+        <td>₹{{t.balancebeforeT}}</td>
+
+        <td>₹{{t.balanceafterT}}</td>
+
+        <td>{{t.transactiondate}}</td>
+
+        <td>{{t.transactiontime}}</td>
+      </tr>
+
+      {% endfor %}
+    </table>
+
+    <div class="back">
+      <a href="/dashboard">
+        <button>Back to Dashboard</button>
+      </a>
+    </div>
+
+    <script>
+      function searchAcc() {
+        let input = document.getElementById("search").value.toUpperCase();
+
+        let table = document.getElementById("myTable");
+
+        let tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+          let td = tr[i].getElementsByTagName("td")[2];
+
+          if (td) {
+            let txt = td.textContent;
+
+            if (txt.toUpperCase().indexOf(input) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
